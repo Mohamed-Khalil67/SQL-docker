@@ -29,6 +29,7 @@ MySQL Database Classic models.
 | productlines          |
 | products              |
 +-----------------------+
+
 ```
 Run on port 3306
 
@@ -61,6 +62,7 @@ Run on port 3306
 ## Install
 First you need to clone the repository:
 ```
-git clone git@github.com:Pakopac/docker-project.git
+git clone git@github.com:Mohamed-Khalil67/SQL-docker.git
+
 ```
 ...
