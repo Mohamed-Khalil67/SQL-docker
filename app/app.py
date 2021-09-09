@@ -61,7 +61,7 @@ def sample_query() -> List:
     q=[]
     logging.info('\n### ✅ All Payments with date > 01 June 2005:')
     pays = session.query(payments)\
-        .filter_by(paymentDate> date(2005,6,1))\
+        .filter_by(payments> date(2005,6,1))\
         .all()
     for pay in pays:
         q.append('{pay.customerNumber} payed {pay.amount} on {pay.paymentDate}')
@@ -79,7 +79,6 @@ def tables() -> str:
 @app.route('/query')
 def sample_query() -> str:
     return json.dumps({'Sample Query ': sample_query()})
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5000)

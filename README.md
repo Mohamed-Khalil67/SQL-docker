@@ -4,7 +4,7 @@
 
 Classicmodels is a database that we are going to use for educational purposes. As we want to list all tables of offices , customers , employes to compare them with other data in the database.
 
-### APP:
+### APP.PY:
 Web application Flask with:
 * Route home '/'
 * Route tables '/tables'
@@ -48,19 +48,20 @@ Run on port 3306
 └── README.md
 ```
 
-* App Folder
+* app Folder
     * app.py with application
     * Dockerfile build by docker-compose
     * requirements.txt to install modules needed
-* DB folder
+* db folder
     * Dockerfile build by docker-compose
     * sql with our database
 * docker-compose build all
 * README.md is reading me
 
 
-## Install
-First you need to clone the repository:
+## Cloning
+
+Repository:
 ```
 git clone git@github.com:Mohamed-Khalil67/SQL-docker.git
 
