@@ -10,8 +10,8 @@ import pymysql
 app = Flask(__name__)
 
 config = {
-        'user': 'root',
-        'password': 'root',
+        'user': 'newuser',
+        'password': 'newpassword',
         'host': 'db',
         'port': '3306',
         'database': 'classicmodels'
