@@ -1,6 +1,6 @@
 # Classicmodels Database manipulation
 
-## Presentation:
+## Resumé:
 
 Classicmodels is a database that we are going to use for educational purposes. As we want to list all tables of offices , customers , employes to compare them with other data in the database.
 
