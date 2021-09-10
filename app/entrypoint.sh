@@ -8,4 +8,6 @@ done
 
 echo "Mysql Started"
 
-python ./app.py
+#python ./app.py
+
+exec "$@"

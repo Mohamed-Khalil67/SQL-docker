@@ -61,12 +61,25 @@ def sample_query() -> List:
     q=[]
     logging.info('\n### ✅ All Payments with date > 01 June 2005:')
     pays = session.query(payments)\
-        .filter_by(payments> date(2005,6,1))\
+        .filter_by(payments.paymentDate> date(2005,6,1))\
         .all()
     for pay in pays:
         q.append('{pay.customerNumber} payed {pay.amount} on {pay.paymentDate}')
     print('')
     return q 
+
+def print_payments():
+    tab=[]
+    logging.info(' - - - ✅ Tables into database - - - \n')
+    records = session.query(payments).all()
+    for record in records:
+        recordObject = {
+            'customerNumber': records.customerNumber,
+            'checkNumber': records.checkNumber,
+            'paymentDate': records.paymentDate,
+            'amount': records.amount
+        }
+    return recordObject 
 
 @app.route('/')
 def index() -> str:
@@ -79,6 +92,10 @@ def tables() -> str:
 @app.route('/query')
 def sample_query() -> str:
     return json.dumps({'Sample Query ': sample_query()})
+
+@app.route('/payments')
+def fetch_payments() :
+    return json.dumps({'Payments ': print_payments()})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5000)

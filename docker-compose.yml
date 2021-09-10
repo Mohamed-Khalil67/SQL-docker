@@ -16,16 +16,9 @@ services:
       MYSQL_USER: newuser 
       MYSQL_PASSWORD: newpassword
       MYSQL_DATABASE: classicmodels
-      MYSQL_ROOT_HOST: '%'
     expose:
       # Opens port 3306 on the container
       - '3306'
     volumes:
       - ./db:/docker-entrypoint-initdb.d/:ro
       - .:/app
-  tests:
-    build: ./app
-    volumes:
-      - ./db:/docker-entrypoint-initdb.d/:ro
-      - .:/app
-    command: ["pytest","./app/tests/test.py"]

@@ -9,3 +9,4 @@ COPY app.py /app
 COPY ./entrypoint.sh .
 # run entrypoint.sh
 ENTRYPOINT ["./entrypoint.sh"]
+CMD ["python","./app.py"]

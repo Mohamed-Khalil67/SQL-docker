@@ -4,35 +4,6 @@
 
 Classicmodels is a database that we are going to use for educational purposes. As we want to list all tables of offices , customers , employes to compare them with other data in the database.
 
-### APP.PY:
-Web application Flask with:
-* Route home '/'
-* Route tables '/tables'
-* Route Query '/query'
-* Get from db with sqlAlchemy
-* Templates with Jinja "on going"
-* Run on port 5000
-
-### DATABASE:
-MySQL Database Classic models.
-
-```
-+-----------------------+
-| Tables_Classic_models |
-+-----------------------+
-| customers             |
-| employees             |
-| offices               |
-| orderdetails          |
-| orders                |
-| payments              |
-| productlines          |
-| products              |
-+-----------------------+
-
-```
-Run on port 3306
-
 ## Architecture:
 ```
 ├── app
@@ -58,6 +29,34 @@ Run on port 3306
 * docker-compose build all
 * README.md is reading me
 
+## Database :
+MySQL Database Classic models.
+
+```
++-----------------------+
+| Tables_Classic_models |
++-----------------------+
+| customers             |
+| employees             |
+| offices               |
+| orderdetails          |
+| orders                |
+| payments              |
+| productlines          |
+| products              |
++-----------------------+
+
+```
+Run on port 3306
+
+## APP.PY:
+Web application Flask with:
+* Route home '/'
+* Route tables '/tables'
+* Route Query '/query'
+* Get from db with sqlAlchemy
+* Templates with Jinja "on going"
+* Run on port 5000
 
 ## Cloning
 
@@ -66,4 +65,14 @@ Repository:
 git clone git@github.com:Mohamed-Khalil67/SQL-docker.git
 
 ```
+
+## Docker-compose build et unbuild
+
+* docker-compose down -v
+* docker-compose up --build
+
+## Mysql connect
+
+* docker exec -it [container database ID] /bin/bash , // going to terminale of the container.
+    * Then connect to server mysql : mysql -u newuser -p
 ...
