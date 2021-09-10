@@ -75,4 +75,12 @@ git clone git@github.com:Mohamed-Khalil67/SQL-docker.git
 
 * docker exec -it [container database ID] /bin/bash , // going to terminale of the container.
     * Then connect to server mysql : mysql -u newuser -p
+
+## Docker image repository
+
+* image repisotory : https://hub.docker.com/repository/docker/solomoon67/sql_docker
+
+* docker-compose push
+
+
 ...

@@ -7,6 +7,12 @@ services:
     ports:
       - "5000:5000"
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    image : solomoon67/docker-sql_app
   db:
     image: mysql:5.7
     ports:
@@ -22,3 +28,8 @@ services:
     volumes:
       - ./db:/docker-entrypoint-initdb.d/:ro
       - .:/app
+    healthcheck:
+      test: ["CMD","nc","-z","-v","http://localhost:3306"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3

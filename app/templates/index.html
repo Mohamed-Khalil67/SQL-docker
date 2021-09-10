@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ site_title }}</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/materialize.min.css') }}" type="text/css" rel="stylesheet"
+          media="screen,projection"/>
+
+</head>
+
+<!--CONTAINER-->
+<div class="container">
+    <h1>List of offices</h1>
+    <ul class="collection with-header">
+        {% for offices in office_list0 %}
+            <li class="collection-item"><a href="#">{{ offices }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="container">
+    <h1>List of payments</h1>
+    <ul class="collection with-header">
+        {% for payments in payment_list0 %}
+            <li class="collection-item"><a href="#">{{ payments }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="container">
+    <h1>List of employees</h1>
+    <ul class="collection with-header">
+        {% for employees in employee_list0 %}
+            <li class="collection-item"><a href="#">{{ employees }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>
