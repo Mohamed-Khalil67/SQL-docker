@@ -198,7 +198,6 @@ def tables() -> str:
 def get_all():
     return render_template('index.html',office_list0=office_list,payment_list0=payments_list,employee_list0=employee_list)
 
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5000)
 

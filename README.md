@@ -1,5 +1,8 @@
 # Classicmodels Database manipulation
 
+## Graphical Presentation
+
+
 ## Resumé:
 
 Classicmodels is a database that we are going to use for educational purposes. As we want to list all tables of offices , customers , employes to compare them with other data in the database.
@@ -82,5 +85,12 @@ git clone git@github.com:Mohamed-Khalil67/SQL-docker.git
 
 * docker-compose push
 
+## testing units
 
+* healthcheck:
+      test: ["CMD","nc","-z","-v","http://localhost:3306"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+* Health : unhealthy résultat
 ...

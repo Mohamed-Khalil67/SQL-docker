@@ -1,18 +1,24 @@
 version: "3"
+
 services:
   app:
-    build: ./app
-    links:
-      - db
-    ports:
-      - "5000:5000"
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000"]
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
-    image : solomoon67/docker-sql_app
+      build: ./app/.
+      depends_on:
+        - db
+      links:
+        - db
+      ports:
+        - "5000:5000"
+      restart: unless-stopped
+      healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:5000"]
+        interval: 1m30s
+        timeout: 10s
+        retries: 3
+      image : solomoon67/docker-sql_app
+      networks:
+              - sql_network
+
   db:
     image: mysql:5.7
     ports:
@@ -33,3 +39,21 @@ services:
       interval: 1m30s
       timeout: 10s
       retries: 3
+    networks:
+            - sql_network
+
+  server:
+        build: ./server/.
+        volumes:
+            - ./server/html/:/usr/share/nginx/html
+        depends_on:
+            - db
+            - app
+        networks:
+            - sql_network
+        ports:
+            - 8000:80
+
+networks:
+    sql_network:
+        driver: bridge
