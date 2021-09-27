@@ -6,3 +6,5 @@ pytest
 cryptography
 jinja2
 datetime
+gunicorn
+psycopg2-binary

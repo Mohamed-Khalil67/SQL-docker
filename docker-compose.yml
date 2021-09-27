@@ -2,20 +2,27 @@ version: "3"
 
 services:
   app:
-      build: ./app/.
+      build: ./app
+      command: gunicorn --bind 0.0.0.0:5000 app:app 
+      #command: python app.py run -h 0.0.0.0:5000
+      volumes:
+        - ./app/:/user/src/app/
+      expose:
+        - 5000
+      ports:
+        - "5000:5000"
+      env_file:
+        - ./.env.prod
       depends_on:
         - db
       links:
         - db
-      ports:
-        - "5000:5000"
       restart: unless-stopped
-      healthcheck:
-        test: ["CMD", "curl", "-f", "http://localhost:5000"]
-        interval: 1m30s
-        timeout: 10s
-        retries: 3
-      image : solomoon67/docker-sql_app
+      # healthcheck:
+      #   test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      #   interval: 1m30s
+      #   timeout: 10s
+      #   retries: 3
       networks:
               - sql_network
 
@@ -23,37 +30,40 @@ services:
     image: mysql:5.7
     ports:
       - "3303:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: newuser 
-      MYSQL_PASSWORD: newpassword
-      MYSQL_DATABASE: classicmodels
+    env_file:
+      - ./.env.prod.db
+    # environment:
+    #   MYSQL_ROOT_PASSWORD: root
+    #   MYSQL_USER: newuser 
+    #   MYSQL_PASSWORD: newpassword
+    #   MYSQL_DATABASE: classicmodels
     expose:
       # Opens port 3306 on the container
       - '3306'
     volumes:
       - ./db:/docker-entrypoint-initdb.d/:ro
       - .:/app
-    healthcheck:
-      test: ["CMD","nc","-z","-v","http://localhost:3306"]
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
+    # healthcheck:
+    #   test: ["CMD","nc","-z","-v","http://localhost:3306"]
+    #   interval: 1m30s
+    #   timeout: 10s
+    #   retries: 3
     networks:
             - sql_network
 
   server:
-        build: ./server/.
+        build: ./nginx
+        restart: always
         volumes:
-            - ./server/html/:/usr/share/nginx/html
+            - ./nginx/html/:/usr/share/nginx/html/:ro
+        ports:
+            - 1337:80 # localhost:1337/$routes ;
         depends_on:
             - db
             - app
         networks:
             - sql_network
-        ports:
-            - 8000:80
-
+      
 networks:
     sql_network:
         driver: bridge
