@@ -3,16 +3,16 @@ version: "3"
 services:
   app:
       build: ./app
-      command: gunicorn --bind 0.0.0.0:5000 app:app 
+      command: gunicorn -w 4 --bind 0.0.0.0:5000 app:app 
       #command: python app.py run -h 0.0.0.0:5000
       volumes:
         - ./app/:/user/src/app/
       expose:
         - 5000
       ports:
-        - "5000:5000"
-      env_file:
-        - ./.env.prod
+        - 5000:5000
+      # env_file:
+      #   - ./.env.prod
       depends_on:
         - db
       links:
@@ -24,12 +24,13 @@ services:
       #   timeout: 10s
       #   retries: 3
       networks:
-              - sql_network
+        - frontend
+        - backend
 
   db:
     image: mysql:5.7
     ports:
-      - "3303:3306"
+      - 3000:3306
     env_file:
       - ./.env.prod.db
     # environment:
@@ -39,7 +40,7 @@ services:
     #   MYSQL_DATABASE: classicmodels
     expose:
       # Opens port 3306 on the container
-      - '3306'
+      - 3306
     volumes:
       - ./db:/docker-entrypoint-initdb.d/:ro
       - .:/app
@@ -49,21 +50,32 @@ services:
     #   timeout: 10s
     #   retries: 3
     networks:
-            - sql_network
+      - backend
 
   server:
-        build: ./nginx
-        restart: always
+        image: nginx:alpine
+        restart: unless-stopped
         volumes:
-            - ./nginx/html/:/usr/share/nginx/html/:ro
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./app/templates/.:/etc/nginx/html/.
         ports:
-            - 1337:80 # localhost:1337/$routes ;
+            - 80:80
+            - 443:443
         depends_on:
-            - db
             - app
         networks:
-            - sql_network
+            - frontend
       
 networks:
-    sql_network:
-        driver: bridge
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+
+volumes:
+  db:
+    driver: local
+  app:
+    driver: local
+  server:
+    driver: local

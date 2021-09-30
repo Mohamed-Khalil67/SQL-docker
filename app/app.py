@@ -1,5 +1,5 @@
 from typing import List, Dict
-from flask import Flask,render_template
+from flask import Flask,render_template,request
 import json
 from sqlalchemy import create_engine, MetaData, Table, Column, Float, Integer, String, ForeignKey
 from sqlalchemy.ext.automap import automap_base
@@ -8,6 +8,7 @@ import logging
 import pymysql
 from jinja2 import Template
 import datetime as dt
+
 
 # Current date time in local system 
 import sqlalchemy as db
@@ -44,7 +45,9 @@ db_name = config.get('database')
 connection_str = f'mysql+pymysql://{db_user}:{db_pwd}@{db_host}:{db_port}/{db_name}'
 # connect to database
 engine = db.create_engine(connection_str)
+#connection = engine.raw_connection()
 connection = engine.connect()
+#cursor = connection.cursor()
 logging.info(' - - - ✅ MySQL Docker Container Python connection ok - - - \n')
 
 print('\n--- MYSQL Datase `classicmodels` connection ok --- ')
@@ -172,31 +175,76 @@ office_list = session.query(offices);
 employee_list = session.query(employees);
 payments_list = session.query(payments);
 
-logging.info('\n - - - ✅ [Tables] Payments | Data Mapping OK - - - \n')
+# logging.info('\n - - - ✅ [Tables] Payments | Data Mapping OK - - - \n')
 
-def print_table() -> List:
-    tab=[]
-    logging.info(' - - - ✅ Tables into database - - - \n')
-    for t in metadata.sorted_tables:
-        print("\t\t - {}".format(t.name))
-        tab.append(t.name)
-    return tab 
+# def print_table() -> List:
+#     tab=[]
+#     logging.info(' - - - ✅ Tables into database - - - \n')
+#     for t in metadata.sorted_tables:
+#         print("\t\t - {}".format(t.name))
+#         tab.append(t.name)
+#     return tab 
 
-logging.info('\n - - - ✅ Test | Fetch all tables - - - \n')
+# logging.info('\n - - - ✅ Test | Fetch all tables - - - \n')
 
-print(engine.table_names())
+# print(engine.table_names())
 
-@app.route('/')
-def index() -> str:
-    return ' - - - ✅ MySQL Database `classicmodels` connection ok - - - '
+# @app.route('/search', methods=['GET', 'POST'])
+# def search():
+#     if request.method == "POST":
+#         offices = request.form['offices']
+#         # search by author or book
+#         cursor.execute("SELECT city from offices WHERE city LIKE '%s' ", (offices))
+#         # OR author LIKE %s
+#         connection.commit()
+#         data = cursor.fetchall()
+#         # all in the search box will return all the tuples
+#         if len(data) == 0 and offices == 'all': 
+#             cursor.execute("SELECT city from offices")
+#             connection.commit()
+#             data = cursor.fetchall()
+#         return render_template('search.html', data=data)
+#     return render_template('search.html')
+# end point for inserting data dynamicaly in the database
 
-@app.route('/tables')
-def tables() -> str:
-    return json.dumps({'Tables ': print_table()})
+# @app.route('/')
+# def show_all():
+#     return render_template('show_all.html',office_list0=office_list)
 
-@app.route('/getall')
-def get_all():
-    return render_template('index.html',office_list0=office_list,payment_list0=payments_list,employee_list0=employee_list)
+# @app.route('/')
+# def index() -> str:
+#     return ' - - - ✅ MySQL Database `classicmodels` connection ok - - - '
+
+# @app.route('/tables')
+# def tables() -> str:
+#     return json.dumps({'Tables ': print_table()})
+
+# @app.route('/getall')
+# def get_all():
+#     return render_template('index.html',office_list0=office_list,payment_list0=payments_list,employee_list0=employee_list)
+
+@app.template_filter()
+def datetimefilter(value, format='%Y/%m/%d %H:%M'):
+    """convert a datetime to a different format."""
+    return value.strftime(format)
+
+app.jinja_env.filters['datetimefilter'] = datetimefilter
+
+@app.route("/")
+def template_test():
+    return render_template('template.html', my_string="Index Page",title="Index", current_time=dt.datetime.now())
+
+@app.route("/home")
+def home():
+    return render_template('template.html', my_string="About Page",title="Home", current_time=dt.datetime.now())
+
+@app.route("/about")
+def about():
+    return render_template('template.html', my_string="About Page",title="About", current_time=dt.datetime.now())
+
+@app.route("/offices")
+def offices_list():
+    return render_template('template.html', my_string="List of offices", my_list=office_list, title="Offices", current_time=dt.datetime.now())
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5000)

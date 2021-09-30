@@ -1,3 +1,9 @@
+echo Stop nginx
+sudo systemctl stop nginx
+
+echo Down with servers
+docker-compose down -v
+
 echo killing old docker processes
 docker-compose rm -fs
 
