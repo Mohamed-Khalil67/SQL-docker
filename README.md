@@ -7,6 +7,10 @@ Classicmodels is a database that we are going to use for educational purposes. A
 ## Architecture:
 ```
 ├── app
+│   ├── templates
+│   │   ├── layout.html
+│   │   ├── macros.html
+│   │   ├── template.html
 │   ├── __init__.py
 │   ├── app.py
 │   ├── Dockerfile
