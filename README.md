@@ -24,7 +24,6 @@ Classicmodels is a database that we are going to use for educational purposes. A
 ├── db
 │   ├── Dockerfile
 │   └── init.sql
-├── queries
 ├── docker-compose.yml
 ├── run_docker.sh
 └── README.md
