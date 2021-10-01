@@ -2,11 +2,11 @@
 
 ## Preview project schematic
 
-![Image 0](/project.png)
+![Image 0](/sql-project.png)
 
 ![Image 1](/Architecture.png)
 
-## Data Modeling Interface:
+## Interface:
 
 ![Image 2](/modelDataView.png)
 
