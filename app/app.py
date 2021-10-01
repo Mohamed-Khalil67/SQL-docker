@@ -43,6 +43,9 @@ db_port = config.get('port')
 db_name = config.get('database')
 
 connection_str = f'mysql+pymysql://{db_user}:{db_pwd}@{db_host}:{db_port}/{db_name}'
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'connection_str'
+
 # connect to database
 engine = db.create_engine(connection_str)
 #connection = engine.raw_connection()

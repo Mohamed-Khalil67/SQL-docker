@@ -1,6 +1,6 @@
 # Classicmodels Database manipulation
 
-## Preview project schematic
+## Overview project schematic
 
 ![Image 0](/sql-project.png)
 
@@ -90,7 +90,6 @@ Web application Flask with:
 Repository:
 ```
 git clone git@github.com:Mohamed-Khalil67/SQL-docker.git
-
 ```
 
 ## Docker-compose build et unbuild :
@@ -119,4 +118,22 @@ git clone git@github.com:Mohamed-Khalil67/SQL-docker.git
       timeout: 10s
       retries: 3
 * Health : unhealthy résultat
+
+## heroku:
+
+* heroku commands:
+    * heroku login , (login with accound )
+
+    * heroku addons:create cleardb:standard-25 --app docker-sql-flask-nginx , ( database creation )
+
+    --> problem :  credit card needed
+
+    * heroku config --app app_name , ( getting the URL of the database)
+
+    --> need the addon for mysql pas postgresql
+
+    * git add . , commit , push .
+    * heroku git:remote -a docker-sql-flask-nginx
+    * git push heroku master.
+
 ...
