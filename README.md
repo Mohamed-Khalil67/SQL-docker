@@ -1,5 +1,9 @@
 # Classicmodels Database manipulation
 
+## Preview project schematic
+
+![Image 0](/project.png)
+
 ![Image 1](/Architecture.png)
 
 ## Data Modeling Interface:
@@ -8,7 +12,9 @@
 
 ## Brief explanation of the database:
 
-Classicmodels is a database that we are going to use for educational purposes. As we want to list all tables of offices , customers , employes to compare them with other data in the database.
+Classicmodels is a database that we are going to use for educational purposes. 
+
+As we want to list all tables of offices , customers , employes to compare them with other data in the database.
 
 ## Architecture:
 ```
@@ -73,6 +79,12 @@ Web application Flask with:
 * Templates with Jinja "on going"
 * Run on port 5000
 
+## Nginx.conf :
+
+* We query on port 80 on our localhost, which is sent on port 8080 on our sql-network to nginx (nginx is listening on port 8080)
+* nginx transfers this request to port 5000 on the sql-network (which is where Gunicorn will recieve the request)
+* Gunicorn passes this request to Flask
+
 ## Github cloning :
 
 Repository:
@@ -93,9 +105,11 @@ git clone git@github.com:Mohamed-Khalil67/SQL-docker.git
 
 ## Docker image repository :
 
-* image repisotory : https://hub.docker.com/repository/docker/solomoon67/sql_docker
+* image repisotory : https://hub.docker.com/r/solomoon67/docker-sql_app
 
-* docker-compose push
+* Steps :
+    * docker-compose build 
+    * docker push solomoon67/docker-sql_app:latest
 
 ## testing units :
 

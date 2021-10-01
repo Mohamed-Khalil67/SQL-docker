@@ -7,9 +7,9 @@ services:
       volumes:
         - ./app/:/user/src/app/
       expose:
-        - 5000
+        - "5000"
       ports:
-        - 5000:5000
+        - "5000:5000"
       depends_on:
         - db
       links:
@@ -21,13 +21,16 @@ services:
         timeout: 10s
         retries: 3
       networks:
-        - frontend
-        - backend
+        - sql-network
+      # image: solomoon67/docker-sql_app:latest
 
   db:
     image: mysql:5.7
+    expose:
+      # Opens port 3306 on the container
+      - "3306"
     ports:
-      - 3000:3306
+      - "3000:3306"
     env_file:
       - ./.env.prod.db
     # environment:
@@ -35,9 +38,6 @@ services:
     #   MYSQL_USER: newuser 
     #   MYSQL_PASSWORD: newpassword
     #   MYSQL_DATABASE: classicmodels
-    expose:
-      # Opens port 3306 on the container
-      - 3306
     volumes:
       - ./db:/docker-entrypoint-initdb.d/:ro
       - .:/app
@@ -47,31 +47,25 @@ services:
       timeout: 10s
       retries: 3
     networks:
-      - backend
+      - sql-network
+    # image: solomoon67/docker-sql_app:latest
 
   server:
         image: nginx:alpine
-        restart: unless-stopped
+        restart: always
         volumes:
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+        expose:
+            - "8080"
         ports:
-            - 80:80
-            - 443:443
+           - "80:8080"
         depends_on:
             - app
         networks:
-            - frontend
+            - sql-network
+        # image: solomoon67/docker-sql_app:latest
       
 networks:
-  frontend:
-    driver: bridge
-  backend:
+  sql-network:
     driver: bridge
 
-volumes:
-  db:
-    driver: local
-  app:
-    driver: local
-  server:
-    driver: local
