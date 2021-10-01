@@ -9,14 +9,13 @@
 {% endblock %} -->
 {% block content %}
   <!-- <h3> This is the start of my child template</h3> -->
-  <p><head>string: {{my_string}}</head></p>
   <br>
-  <h4>Current date/time: {{ current_time | datetimefilter }}</h4>
+  <p><h1>{{my_string}}:</h1></p>
+  <p>Current date/time: {{ current_time | datetimefilter }}</p>
   <br>
-  <p><h1>Loop through the list:</h1></p>
   <ul>
     {% for n in my_list %}
-    <li><h2>{{n}}</h2></li>
+    <li><h3>Office Code ({{n.officeCode}}) = {{n.state , n.city , n.country}}</h3></li>
     {% endfor %}
   </ul>
   <br>

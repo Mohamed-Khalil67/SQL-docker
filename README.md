@@ -2,7 +2,7 @@
 
 ![Test Image 3](/Architecture.png)
 
-## Resumé:
+## Brief explanation of the database:
 
 Classicmodels is a database that we are going to use for educational purposes. As we want to list all tables of offices , customers , employes to compare them with other data in the database.
 
@@ -12,17 +12,19 @@ Classicmodels is a database that we are going to use for educational purposes. A
 │   ├── templates
 │   │   ├── layout.html
 │   │   ├── macros.html
-│   │   ├── template.html
+│   │   └── template.html
 │   ├── __init__.py
 │   ├── app.py
 │   ├── Dockerfile
-│   ├── requirements.txt
+│   └── requirements.txt
 ├── db
 │   ├── Dockerfile
 │   └── init.sql
 ├── queries
 ├── docker-compose.yml
+├── run_docker.sh
 └── README.md
+
 ```
 
 * app Folder
@@ -32,8 +34,11 @@ Classicmodels is a database that we are going to use for educational purposes. A
 * db folder
     * Dockerfile build by docker-compose
     * sql with our database
+* nginx folder
+    * nginx.conf for configuartion of the server
 * docker-compose build all
 * README.md is reading me
+* run_docker.sh
 
 ## Database :
 MySQL Database Classic models.
@@ -56,6 +61,7 @@ MySQL Database Classic models.
 Run on port 3306
 
 ## APP.PY:
+
 Web application Flask with:
 * Route home '/'
 * Route tables '/tables'
@@ -64,7 +70,7 @@ Web application Flask with:
 * Templates with Jinja "on going"
 * Run on port 5000
 
-## Cloning
+## Github cloning :
 
 Repository:
 ```
@@ -72,23 +78,23 @@ git clone git@github.com:Mohamed-Khalil67/SQL-docker.git
 
 ```
 
-## Docker-compose build et unbuild
+## Docker-compose build et unbuild :
 
 * docker-compose down -v
 * docker-compose up --build
 
-## Mysql connect
+## Mysql connect :
 
 * docker exec -it [container database ID] /bin/bash , // going to terminale of the container.
     * Then connect to server mysql : mysql -u newuser -p
 
-## Docker image repository
+## Docker image repository :
 
 * image repisotory : https://hub.docker.com/repository/docker/solomoon67/sql_docker
 
 * docker-compose push
 
-## testing units
+## testing units :
 
 * healthcheck:
       test: ["CMD","nc","-z","-v","http://localhost:3306"]
