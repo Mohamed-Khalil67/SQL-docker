@@ -1,6 +1,10 @@
 # Classicmodels Database manipulation
 
-![Test Image 3](/Architecture.png)
+![Image 1](/Architecture.png)
+
+## Data Modeling Interface:
+
+![Image 2](/modelDataView.png)
 
 ## Brief explanation of the database:
 
