@@ -16,12 +16,13 @@ services:
         - db
       restart: unless-stopped
       healthcheck:
-        test: ["CMD", "curl", "-f", "http://localhost:5000"]
+        test: curl --fail -s http://localhost:5000/ || exit 1
         interval: 1m30s
         timeout: 10s
         retries: 3
       networks:
-        - sql-network
+        - frontend
+        - backend
       # image: solomoon67/docker-sql_app:latest
 
   db:
@@ -42,12 +43,12 @@ services:
       - ./db:/docker-entrypoint-initdb.d/:ro
       - .:/app
     healthcheck:
-      test: ["CMD","nc","-z","-v","http://localhost:3306"]
+      test: curl --fail -s http://localhost:3306/ || exit 1
       interval: 1m30s
       timeout: 10s
       retries: 3
     networks:
-      - sql-network
+      - backend
     # image: solomoon67/docker-sql_app:latest
 
   server:
@@ -58,14 +59,16 @@ services:
         expose:
             - "8080"
         ports:
-           - "80:8080"
+            - "80:8080"
         depends_on:
             - app
         networks:
-            - sql-network
+            - backend
         # image: solomoon67/docker-sql_app:latest
       
 networks:
-  sql-network:
+  backend:
+    driver: bridge
+  frontend:
     driver: bridge
 

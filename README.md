@@ -121,6 +121,8 @@ git clone git@github.com:Mohamed-Khalil67/SQL-docker.git
 
 ## heroku:
 
+Heroku.yml creation is needed
+
 * heroku commands:
     * heroku login , (login with accound )
 
@@ -135,5 +137,15 @@ git clone git@github.com:Mohamed-Khalil67/SQL-docker.git
     * git add . , commit , push .
     * heroku git:remote -a docker-sql-flask-nginx
     * git push heroku master.
+
+* heroku container commands:
+
+    * heroku container:login
+
+    * heroku container:push --recursive
+
+    * git add . , commit 
+
+    * git push herko master
 
 ...
